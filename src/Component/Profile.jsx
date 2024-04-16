@@ -11,6 +11,16 @@ import {
 } from "@mdi/js";
 
 const Profile = () => {
+  const [info, setInfo] = useState({
+    name: "Anaswfa",
+    address: "",
+    zipcode: "",
+    city: "",
+    phone: "",
+    email: "",
+    miscInfo: "",
+    miscAllergy: "",
+  });
   const [foodAllergies, setFoodAllergies] = useState({
     Nötter: false,
     Mjölk: false,
@@ -47,23 +57,66 @@ const Profile = () => {
       [key]: checked ? true : false,
     }));
   }
+  function handleInfo(e) {
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      [e.target.name]: e.target.value,
+    }));
+  }
+  console.log(info);
   return (
     <div className="profile__container">
       <section className="profile__section">
         <h2 className="profile__heading">Deltar med</h2>
-        <Input icon={mdiAccountMultiple} placeholder={"Namn"} />
+        <Input
+          icon={mdiAccountMultiple}
+          placeholder={"Namn"}
+          name={"name"}
+          value={info.name}
+          onchange={handleInfo}
+        />
       </section>
       <section className="profile__section">
         <h2 className="profile__heading">Värdplats</h2>
-        <Input icon={mdiRoadVariant} placeholder={"Adress"} />
-        <Input icon={mdiNumeric} placeholder={"Postnummer"} />
-        <Input icon={mdiCity} placeholder={"Ort"} />
+        <Input
+          icon={mdiRoadVariant}
+          placeholder={"Adress"}
+          name={"address"}
+          value={info.address}
+          onchange={handleInfo}
+        />
+        <Input
+          icon={mdiNumeric}
+          placeholder={"Postnummer"}
+          name={"zipcode"}
+          value={info.zipcode}
+          onchange={handleInfo}
+        />
+        <Input
+          icon={mdiCity}
+          placeholder={"Ort"}
+          name={"city"}
+          value={info.city}
+          onchange={handleInfo}
+        />
       </section>
 
       <section className="profile__section">
         <h2 className="profile__heading">Information</h2>
-        <Input icon={mdiPhone} placeholder={"Telefonnummer"} />
-        <Input icon={mdiEmail} placeholder={"E-post"} />
+        <Input
+          icon={mdiPhone}
+          placeholder={"Telefonnummer"}
+          name={"phone"}
+          value={info.phone}
+          onchange={handleInfo}
+        />
+        <Input
+          icon={mdiEmail}
+          placeholder={"E-post"}
+          name={"email"}
+          value={info.email}
+          onchange={handleInfo}
+        />
       </section>
       <section className="profile__section">
         <h2 className="profile__heading">Matallergier</h2>
@@ -80,7 +133,13 @@ const Profile = () => {
             );
           })}
         </div>
-        <Input icon={mdiHamburgerOff} placeholder={"Övriga allergier"} />
+        <Input
+          icon={mdiHamburgerOff}
+          placeholder={"Övriga allergier"}
+          name={"miscAllergy"}
+          value={info.miscAllergy}
+          onchange={handleInfo}
+        />
       </section>
       <section className="profile__section">
         <h2 className="profile__heading">Husdjur</h2>
@@ -115,15 +174,33 @@ const Profile = () => {
           })}
         </div>
       </section>
+      <section className="profile__section">
+        <textarea
+          name="miscInfo"
+          onChange={handleInfo}
+          rows="4"
+          class="profile__textbox"
+          placeholder="Fritext"
+        >
+          {info.miscInfo}
+        </textarea>
+      </section>
     </div>
   );
 };
 
-const Input = ({ icon, placeholder }) => {
+const Input = ({ name, icon, placeholder, value, onchange }) => {
   return (
     <label className="profile__label">
       {icon ? <Icon path={icon} className="profile__icon" /> : ""}
-      <input className="profile__input" type="text" placeholder={placeholder} />
+      <input
+        name={name}
+        className="profile__input"
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={onchange}
+      />
     </label>
   );
 };

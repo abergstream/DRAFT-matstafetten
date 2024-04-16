@@ -110,7 +110,20 @@
   border-bottom: 2px solid #555;
   transform: rotate(-45deg);
 }
+.profile__textbox {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.4rem;
 
+  font-family: Inter;
+  font-size: 1.4rem;
+  resize: none;
+  &:focus {
+    outline: none;
+    border-color: #555;
+  }
+}
 @media screen and (max-width: 470px) {
   .profile__checkbox-grid {
     grid-template-columns: repeat(3, 1fr);
