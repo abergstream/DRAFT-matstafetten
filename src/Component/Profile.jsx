@@ -8,11 +8,26 @@ import {
   mdiAccountMultiple,
   mdiPhone,
   mdiEmail,
+  mdiPeanut,
+  mdiCup,
+  mdiBaguette,
+  mdiEgg,
+  mdiFish,
+  mdiCorn,
+  mdiCowOff,
+  mdiTortoise,
+  mdiHorse,
+  mdiCat,
+  mdiDog,
+  mdiRabbit,
+  mdiBird,
+  mdiCow,
+  mdiCupOutline,
 } from "@mdi/js";
 
 const Profile = () => {
   const [info, setInfo] = useState({
-    name: "Anaswfa",
+    name: "",
     address: "",
     zipcode: "",
     city: "",
@@ -20,14 +35,19 @@ const Profile = () => {
     email: "",
     miscInfo: "",
     miscAllergy: "",
+    pets: "",
+    foodAllergies: "",
+    petAllergies: "",
   });
   const [foodAllergies, setFoodAllergies] = useState({
     Nötter: false,
-    Mjölk: false,
     Laktos: false,
+    Mjölk: false,
+
     Gluten: false,
     Ägg: false,
     Skaldjur: false,
+    Fisk: false,
     Vegetarian: false,
     Vegan: false,
   });
@@ -45,25 +65,63 @@ const Profile = () => {
     Kanin: false,
     Fågel: false,
   });
-
+  const foodAllergyIcons = [
+    mdiPeanut,
+    mdiCup,
+    mdiCow,
+    mdiBaguette,
+    mdiEgg,
+    mdiTortoise,
+    mdiFish,
+    mdiCowOff,
+    mdiCorn,
+  ];
+  const allergyIcons = [mdiHorse, mdiCat, mdiDog, mdiRabbit, mdiBird];
   function handleCheckboxChange(e, setState) {
+    const checked = e.target.checked;
     const key = e.target.id.startsWith("_")
       ? e.target.id.substring(1)
       : e.target.id;
 
-    const checked = e.target.checked;
     setState((prevState) => ({
       ...prevState,
       [key]: checked ? true : false,
     }));
   }
+
   function handleInfo(e) {
+    console.log(info);
     setInfo((prevInfo) => ({
       ...prevInfo,
       [e.target.name]: e.target.value,
     }));
   }
-  console.log(info);
+  function handleSubmit() {
+    console.log(info);
+
+    // console.log(pets);
+    // console.log(petAllergies);
+    // console.log(foodAllergies);
+    const dbPets = Object.keys(pets).filter((pet) => {
+      return pets[pet] === true;
+    });
+
+    const dbFoodAllergies = Object.keys(foodAllergies).filter((allergy) => {
+      return foodAllergies[allergy] === true;
+    });
+
+    const dbPetAllergies = Object.keys(petAllergies).filter((allergy) => {
+      return petAllergies[allergy] === true;
+    });
+
+    setInfo((prevInfo) => ({
+      ...prevInfo,
+      pets: dbPets.join(";"),
+      foodAllergies: dbFoodAllergies.join(";"),
+      petAllergies: dbPetAllergies.join(";"),
+    }));
+    console.log(info);
+  }
   return (
     <div className="profile__container">
       <section className="profile__section">
@@ -128,6 +186,7 @@ const Profile = () => {
                 id={allergy}
                 text={allergy}
                 value={foodAllergies[allergy]}
+                icon={foodAllergyIcons[index]}
                 onchange={(e) => handleCheckboxChange(e, setFoodAllergies)}
               />
             );
@@ -151,6 +210,7 @@ const Profile = () => {
                 id={pet}
                 text={pet}
                 value={pets[pet]}
+                icon={allergyIcons[index]}
                 onchange={(e) => handleCheckboxChange(e, setPets)}
               />
             );
@@ -168,6 +228,7 @@ const Profile = () => {
                 id={"_" + petAllergy}
                 text={petAllergy}
                 value={petAllergies[petAllergy]}
+                icon={allergyIcons[index]}
                 onchange={(e) => handleCheckboxChange(e, setPetAllergies)}
               />
             );
@@ -179,11 +240,16 @@ const Profile = () => {
           name="miscInfo"
           onChange={handleInfo}
           rows="4"
-          class="profile__textbox"
+          className="profile__textbox"
           placeholder="Fritext"
-        >
-          {info.miscInfo}
-        </textarea>
+          value={info.miscInfo}
+        ></textarea>
+      </section>
+
+      <section className="profile__section profile__section--button">
+        <button className="button" onClick={handleSubmit}>
+          Spara
+        </button>
       </section>
     </div>
   );
@@ -204,7 +270,7 @@ const Input = ({ name, icon, placeholder, value, onchange }) => {
     </label>
   );
 };
-const Checkbox = ({ id, text, value, onchange }) => {
+const Checkbox = ({ id, text, value, onchange, icon }) => {
   return (
     <div className="profile__checkbox-container">
       <input
@@ -215,6 +281,7 @@ const Checkbox = ({ id, text, value, onchange }) => {
         onChange={onchange}
       />
       <label className="profile__label-checkbox" htmlFor={id}>
+        <Icon path={icon} size={2} className="profile__icon" />
         {text}
       </label>
     </div>

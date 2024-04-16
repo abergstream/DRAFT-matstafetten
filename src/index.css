@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+* {
+  box-sizing: border-box;
+}
 html {
   font-size: 10px;
 }
@@ -8,6 +11,18 @@ body {
   background-attachment: fixed;
   background-color: #000;
   font-family: Inter;
+}
+.button {
+  padding: 1rem;
+  background-color: #47abd8;
+  font-family: Inter;
+  font-weight: 500;
+  box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.25);
+  border: 0;
+  color: #fff;
+  width: 12rem;
+  font-size: 1.2rem;
+  border-radius: 0.4rem;
 }
 @media screen and (min-width: 992px) {
   body {

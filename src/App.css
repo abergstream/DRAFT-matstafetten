@@ -13,6 +13,9 @@
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 0.8rem;
 }
+.profile__section--button {
+  align-items: center;
+}
 .profile__heading {
   font-weight: 600;
   font-size: 1.8rem;
@@ -62,10 +65,13 @@
 }
 .profile__label-checkbox {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
   width: 100px;
   height: 100px;
+  padding: 0 0 2rem;
   border-radius: 0.4rem;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #fff;
@@ -97,6 +103,10 @@
   height: 15px;
   border-radius: 50%;
   border: 2px solid #555;
+}
+.profile__checkbox:checked ~ .profile__label-checkbox > .profile__icon {
+  color: #555;
+  width: 2rem;
 }
 
 .profile__checkbox:checked ~ .profile__label-checkbox::after {
