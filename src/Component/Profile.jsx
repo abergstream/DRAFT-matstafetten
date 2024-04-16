@@ -12,11 +12,11 @@ import {
 
 const Profile = () => {
   const [foodAllergies, setFoodAllergies] = useState({
-    Nötter: true,
+    Nötter: false,
     Mjölk: false,
     Laktos: false,
     Gluten: false,
-    Ägg: true,
+    Ägg: false,
     Skaldjur: false,
     Vegetarian: false,
     Vegan: false,
@@ -29,7 +29,7 @@ const Profile = () => {
     Fågel: false,
   });
   const [petAllergies, setPetAllergies] = useState({
-    Pälsdjur: true,
+    Pälsdjur: false,
     Katt: false,
     Hund: false,
     Kanin: false,
