@@ -29,6 +29,7 @@ const Profile = () => {
   const [loadProfile, setLoadProfile] = useState(false);
   const [info, setInfo] = useState({
     name: "",
+    pairWith: "",
     address: "",
     zipcode: "",
     city: "",
@@ -84,6 +85,7 @@ const Profile = () => {
         const data = await response.json();
         setInfo({
           name: data.name,
+          pairWith: data.pairWith,
           address: data.address,
           zipcode: data.zipcode,
           city: data.city,
@@ -154,13 +156,15 @@ const Profile = () => {
       {loadProfile ? (
         <div className="profile__container">
           <section className="profile__section">
+            <h1 className="profile__title">{info.name}</h1>
+          </section>
+          <section className="profile__section">
             <h2 className="profile__heading">Deltar med</h2>
-
             <Input
               icon={mdiAccountMultiple}
               placeholder={"Namn"}
-              name={"name"}
-              value={info.name}
+              name={"pairWith"}
+              value={info.pairWith}
               onchange={handleInfo}
             />
           </section>

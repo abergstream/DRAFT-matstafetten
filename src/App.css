@@ -16,6 +16,12 @@
 .profile__section--button {
   align-items: center;
 }
+.profile__title {
+  font-weight: 600;
+  font-size: 2.4rem;
+  margin: 0;
+  text-align: center;
+}
 .profile__heading {
   font-weight: 600;
   font-size: 1.8rem;
