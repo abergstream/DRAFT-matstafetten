@@ -22,7 +22,6 @@ import {
   mdiRabbit,
   mdiBird,
   mdiCow,
-  mdiCupOutline,
 } from "@mdi/js";
 
 const Profile = () => {
@@ -35,15 +34,11 @@ const Profile = () => {
     email: "",
     miscInfo: "",
     miscAllergy: "",
-    pets: "",
-    foodAllergies: "",
-    petAllergies: "",
   });
   const [foodAllergies, setFoodAllergies] = useState({
     Nötter: false,
     Laktos: false,
     Mjölk: false,
-
     Gluten: false,
     Ägg: false,
     Skaldjur: false,
@@ -97,11 +92,6 @@ const Profile = () => {
     }));
   }
   function handleSubmit() {
-    console.log(info);
-
-    // console.log(pets);
-    // console.log(petAllergies);
-    // console.log(foodAllergies);
     const dbPets = Object.keys(pets).filter((pet) => {
       return pets[pet] === true;
     });
@@ -114,13 +104,21 @@ const Profile = () => {
       return petAllergies[allergy] === true;
     });
 
-    setInfo((prevInfo) => ({
-      ...prevInfo,
-      pets: dbPets.join(";"),
-      foodAllergies: dbFoodAllergies.join(";"),
-      petAllergies: dbPetAllergies.join(";"),
-    }));
-    console.log(info);
+    const formData = new FormData();
+    formData.append("pair_with", info.name);
+    formData.append("address", info.address);
+    formData.append("zipcode", info.zipcode);
+    formData.append("city", info.city);
+    formData.append("mobile", info.phone);
+
+    formData.append("food_allergies", dbFoodAllergies);
+    formData.append("pet_allergies", dbPetAllergies);
+    formData.append("pets", dbPets);
+
+    formData.append("misc_allergies", info.miscAllergy);
+    formData.append("email", info.email);
+    console.log(formData);
+    // console.log(info);
   }
   return (
     <div className="profile__container">
@@ -136,6 +134,10 @@ const Profile = () => {
       </section>
       <section className="profile__section">
         <h2 className="profile__heading">Värdplats</h2>
+        <p className="profile__text">
+          Vänligen fyll i fullständig information om adressen ni kommer att
+          hålla er bjudning på
+        </p>
         <Input
           icon={mdiRoadVariant}
           placeholder={"Adress"}
@@ -160,24 +162,11 @@ const Profile = () => {
       </section>
 
       <section className="profile__section">
-        <h2 className="profile__heading">Information</h2>
-        <Input
-          icon={mdiPhone}
-          placeholder={"Telefonnummer"}
-          name={"phone"}
-          value={info.phone}
-          onchange={handleInfo}
-        />
-        <Input
-          icon={mdiEmail}
-          placeholder={"E-post"}
-          name={"email"}
-          value={info.email}
-          onchange={handleInfo}
-        />
-      </section>
-      <section className="profile__section">
         <h2 className="profile__heading">Matallergier</h2>
+        <p className="profile__text">
+          Vänligen skriv i textfältet om allergin är
+          <em> luftburen</em>
+        </p>
         <div className="profile__checkbox-grid">
           {Object.keys(foodAllergies).map((allergy, index) => {
             return (
@@ -202,6 +191,9 @@ const Profile = () => {
       </section>
       <section className="profile__section">
         <h2 className="profile__heading">Husdjur</h2>
+        <p className="profile__text">
+          Finns det några husdjur där ni ska ha er bjudning?
+        </p>
         <div className="profile__checkbox-grid">
           {Object.keys(pets).map((pet, index) => {
             return (
@@ -220,6 +212,9 @@ const Profile = () => {
 
       <section className="profile__section">
         <h2 className="profile__heading">Allergier</h2>
+        <p className="profile__text">
+          Är någon av er allergisk mot något husdjur?
+        </p>
         <div className="profile__checkbox-grid">
           {Object.keys(petAllergies).map((petAllergy, index) => {
             return (
@@ -236,6 +231,10 @@ const Profile = () => {
         </div>
       </section>
       <section className="profile__section">
+        <h2 className="profile__heading">Övrigt</h2>
+        <p className="profile__text">
+          Har du någon övrig information vi bör veta om?
+        </p>
         <textarea
           name="miscInfo"
           onChange={handleInfo}
@@ -244,6 +243,25 @@ const Profile = () => {
           placeholder="Fritext"
           value={info.miscInfo}
         ></textarea>
+      </section>
+
+      <section className="profile__section">
+        <h2 className="profile__heading">Information</h2>
+        <p className="profile__text">Har du bytt e-post eller telefonnummer?</p>
+        <Input
+          icon={mdiPhone}
+          placeholder={"Telefonnummer"}
+          name={"phone"}
+          value={info.phone}
+          onchange={handleInfo}
+        />
+        <Input
+          icon={mdiEmail}
+          placeholder={"E-post"}
+          name={"email"}
+          value={info.email}
+          onchange={handleInfo}
+        />
       </section>
 
       <section className="profile__section profile__section--button">
