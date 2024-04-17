@@ -24,6 +24,18 @@ body {
   font-size: 1.2rem;
   border-radius: 0.4rem;
 }
+.loading-container {
+  width: 100svw;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5rem;
+}
+.icon__loading {
+  color: #fff;
+  filter: blur(1px) drop-shadow(0 0px 6px #fff);
+}
 @media screen and (min-width: 992px) {
   body {
     background-size: 100%;

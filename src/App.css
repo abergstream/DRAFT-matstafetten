@@ -103,6 +103,9 @@
 .profile__checkbox:checked ~ .profile__label-checkbox {
   border-color: #555;
 }
+.test {
+  color: red;
+}
 .profile__checkbox:checked ~ .profile__label-checkbox::before {
   content: "";
   position: absolute;
