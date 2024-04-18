@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Icon from "@mdi/react";
+import Input from "../Component/Input";
+import Checkbox from "../Component/Checkbox";
+
+import ProfileFetcher from "./MyProfile/ProfileFetcher";
+
 import {
   mdiRoadVariant,
   mdiNumeric,
@@ -24,8 +29,9 @@ import {
   mdiCow,
   mdiLoading,
 } from "@mdi/js";
+import ProfileFormSubmit from "./MyProfile/ProfileFormSubmit";
 
-const Profile = () => {
+const MySettings = () => {
   const [loadProfile, setLoadProfile] = useState(false);
   const [info, setInfo] = useState({
     name: "",
@@ -76,34 +82,6 @@ const Profile = () => {
   ];
   const allergyIcons = [mdiHorse, mdiCat, mdiDog, mdiRabbit, mdiBird];
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://andreasb.se/matstafetten/api/?fetch=userInfo"
-        );
-        const data = await response.json();
-        setInfo({
-          name: data.name,
-          pairWith: data.pairWith,
-          address: data.address,
-          zipcode: data.zipcode,
-          city: data.city,
-          phone: data.phone,
-          email: data.email,
-          miscInfo: data.miscInfo,
-          miscAllergy: data.miscAllergy,
-        });
-        setFoodAllergies(data.foodAllergies);
-        setPetAllergies(data.petAllergies);
-        setPets(data.pets);
-        setLoadProfile(true);
-      } catch (error) {
-        alert("Failed to load from API");
-      }
-    };
-    fetchData();
-  }, []);
   function handleCheckboxChange(e, setState) {
     const checked = e.target.checked;
     const key = e.target.id.startsWith("_")
@@ -123,36 +101,17 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     }));
   }
-  function handleSubmit() {
-    const dbPets = Object.keys(pets).filter((pet) => {
-      return pets[pet] === true;
-    });
 
-    const dbFoodAllergies = Object.keys(foodAllergies).filter((allergy) => {
-      return foodAllergies[allergy] === true;
-    });
-
-    const dbPetAllergies = Object.keys(petAllergies).filter((allergy) => {
-      return petAllergies[allergy] === true;
-    });
-
-    const formData = new FormData();
-    formData.append("pair_with", info.name);
-    formData.append("address", info.address);
-    formData.append("zipcode", info.zipcode);
-    formData.append("city", info.city);
-    formData.append("mobile", info.phone);
-
-    formData.append("food_allergies", dbFoodAllergies);
-    formData.append("pet_allergies", dbPetAllergies);
-    formData.append("pets", dbPets);
-
-    formData.append("misc_allergies", info.miscAllergy);
-    formData.append("email", info.email);
-    console.log(formData);
-  }
   return (
     <>
+      <ProfileFetcher
+        setInfo={setInfo}
+        setFoodAllergies={setFoodAllergies}
+        setPetAllergies={setPetAllergies}
+        setPets={setPets}
+        setLoadProfile={setLoadProfile}
+      />
+      ;
       {loadProfile ? (
         <div className="profile__container">
           <section className="profile__section">
@@ -303,9 +262,12 @@ const Profile = () => {
           </section>
 
           <section className="profile__section profile__section--button">
-            <button className="button" onClick={handleSubmit}>
-              Spara
-            </button>
+            <ProfileFormSubmit
+              info={info}
+              foodAllergies={foodAllergies}
+              petAllergies={petAllergies}
+              pets={pets}
+            />
           </section>
         </div>
       ) : (
@@ -321,38 +283,4 @@ const Profile = () => {
     </>
   );
 };
-
-const Input = ({ name, icon, placeholder, value, onchange }) => {
-  return (
-    <label className="profile__label">
-      {icon ? <Icon path={icon} className="profile__icon" /> : ""}
-      <input
-        name={name}
-        className="profile__input"
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={onchange}
-      />
-    </label>
-  );
-};
-const Checkbox = ({ id, text, value, onchange, icon }) => {
-  return (
-    <div className="profile__checkbox-container">
-      <input
-        className="profile__checkbox"
-        id={id}
-        type="checkbox"
-        checked={value}
-        onChange={onchange}
-      />
-      <label className="profile__label-checkbox" htmlFor={id}>
-        <Icon path={icon} size={2} className="profile__icon" />
-        {text}
-      </label>
-    </div>
-  );
-};
-
-export default Profile;
+export default MySettings;

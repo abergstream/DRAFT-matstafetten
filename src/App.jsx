@@ -1,14 +1,15 @@
 import { useState } from "react";
 
 import "./App.css";
-import Profile from "./Component/Profile";
+
+import MyProfile from "./pages/MyProfile";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Profile />
+      <MyProfile />
     </>
   );
 }
