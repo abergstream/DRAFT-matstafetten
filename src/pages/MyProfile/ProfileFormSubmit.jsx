@@ -1,6 +1,13 @@
 import React from "react";
 
-const ProfileFormSubmit = ({ info, foodAllergies, petAllergies, pets }) => {
+const ProfileFormSubmit = ({
+  info,
+  foodAllergies,
+  petAllergies,
+  pets,
+  setNotification,
+  notification,
+}) => {
   const onSubmit = async () => {
     const dbPets = Object.keys(pets).filter((pet) => {
       return pets[pet] === true;
@@ -39,6 +46,7 @@ const ProfileFormSubmit = ({ info, foodAllergies, petAllergies, pets }) => {
       );
       const API_RESULT = await postResponse.json();
       console.log(API_RESULT);
+      setNotification(API_RESULT);
       // Handle the response if needed
     } catch (error) {
       alert(`Error posting data: ${error}`);
@@ -47,7 +55,11 @@ const ProfileFormSubmit = ({ info, foodAllergies, petAllergies, pets }) => {
   };
 
   return (
-    <button className="button" onClick={onSubmit}>
+    <button
+      className="button"
+      onClick={onSubmit}
+      disabled={notification ? true : ""}
+    >
       Spara
     </button>
   );

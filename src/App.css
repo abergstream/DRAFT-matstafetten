@@ -10,7 +10,7 @@
   flex-direction: column;
   padding: 2rem 1rem;
   gap: 1rem;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.96);
   border-radius: 0.8rem;
 }
 .profile__section--button {
@@ -19,8 +19,9 @@
 .profile__title {
   font-weight: 600;
   font-size: 2.4rem;
-  margin: 0;
+  margin: 1rem 0 0;
   text-align: center;
+  color: #fff;
 }
 .profile__heading {
   font-weight: 600;
@@ -109,9 +110,6 @@
 .profile__checkbox:checked ~ .profile__label-checkbox {
   border-color: #555;
 }
-.test {
-  color: red;
-}
 .profile__checkbox:checked ~ .profile__label-checkbox::before {
   content: "";
   position: absolute;
@@ -155,6 +153,31 @@
     outline: none;
     border-color: #555;
   }
+}
+.profile__notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+  left: 5%;
+  top: -50px;
+  width: 90svw;
+  height: 50px;
+  background-color: #fff;
+  border: 2px solid rgb(255, 173, 97);
+  border-top: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border-radius: 0 0 1rem 1rem;
+  transition: 300ms;
+}
+.profile__notification--show {
+  top: 0;
+}
+.profile__notification--error {
+  border-color: red;
+  top: 0;
 }
 @media screen and (max-width: 470px) {
   .profile__checkbox-grid {
