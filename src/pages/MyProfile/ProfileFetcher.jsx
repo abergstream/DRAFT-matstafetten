@@ -5,6 +5,10 @@ const ProfileFetcher = ({
   setPetAllergies,
   setPets,
   setLoadProfile,
+  setDbInfo,
+  setDbPets,
+  setDbPetAllergies,
+  setDbFoodAllergies,
 }) => {
   useEffect(() => {
     const fetchData = async () => {
@@ -24,9 +28,23 @@ const ProfileFetcher = ({
           miscInfo: data.miscInfo,
           miscAllergy: data.miscAllergy,
         });
+        setDbInfo({
+          name: data.name,
+          pairWith: data.pairWith,
+          address: data.address,
+          zipcode: data.zipcode,
+          city: data.city,
+          phone: data.phone,
+          email: data.email,
+          miscInfo: data.miscInfo,
+          miscAllergy: data.miscAllergy,
+        });
         setFoodAllergies(data.foodAllergies);
+        setDbFoodAllergies(data.foodAllergies);
         setPetAllergies(data.petAllergies);
+        setDbPetAllergies(data.petAllergies);
         setPets(data.pets);
+        setDbPets(data.pets);
         setLoadProfile(true);
       } catch (error) {
         alert("Failed to load from API");

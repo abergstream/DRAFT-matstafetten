@@ -10,6 +10,10 @@ import ProfileForm from "./MyProfile/ProfileForm";
 const MySettings = () => {
   const [loadProfile, setLoadProfile] = useState(false);
   const [notification, setNotification] = useState("");
+  const [dbInfo, setDbInfo] = useState("");
+  const [dbPets, setDbPets] = useState("");
+  const [dbPetAllergies, setDbPetAllergies] = useState("");
+  const [dbFoodAllergies, setDbFoodAllergies] = useState("");
   const [info, setInfo] = useState({
     name: "",
     pairWith: "",
@@ -69,7 +73,6 @@ const MySettings = () => {
   if (notification) {
     setTimeout(() => {
       const notiContainer = document.getElementById("notiContainer");
-      console.log(notiContainer);
 
       notification == "Failed to update database"
         ? notiContainer.classList.add("profile__notification--error")
@@ -82,6 +85,7 @@ const MySettings = () => {
       setNotification("");
     }, 4500);
   }
+  console.log(dbInfo, dbPets, dbPetAllergies, dbFoodAllergies);
   return (
     <>
       <ProfileFetcher
@@ -90,6 +94,10 @@ const MySettings = () => {
         setPetAllergies={setPetAllergies}
         setPets={setPets}
         setLoadProfile={setLoadProfile}
+        setDbInfo={setDbInfo}
+        setDbPets={setDbPets}
+        setDbPetAllergies={setDbPetAllergies}
+        setDbFoodAllergies={setDbFoodAllergies}
       />
       {loadProfile ? (
         <>
@@ -103,11 +111,15 @@ const MySettings = () => {
           <ProfileForm
             info={info}
             foodAllergies={foodAllergies}
+            setFoodAllergies={setFoodAllergies}
             handleInfo={handleInfo}
             pets={pets}
+            setPets={setPets}
             petAllergies={petAllergies}
+            setPetAllergies={setPetAllergies}
             setNotification={setNotification}
             notification={notification}
+            handleCheckboxChange={handleCheckboxChange}
           />
         </>
       ) : (

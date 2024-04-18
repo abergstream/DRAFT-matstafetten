@@ -35,7 +35,7 @@ const ProfileFormSubmit = ({
     formData.append("miscAllergies", info.miscAllergy);
     formData.append("miscInfo", info.miscInfo);
     formData.append("email", info.email);
-    console.log(formData);
+
     try {
       const postResponse = await fetch(
         `https://andreasb.se/matstafetten/api/?do=changeProfile`,

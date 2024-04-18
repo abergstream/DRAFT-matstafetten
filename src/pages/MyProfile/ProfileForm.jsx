@@ -29,10 +29,14 @@ const ProfileForm = ({
   info,
   handleInfo,
   foodAllergies,
+  setFoodAllergies,
   pets,
+  setPets,
   petAllergies,
+  setPetAllergies,
   setNotification,
   notification,
+  handleCheckboxChange,
 }) => {
   const allergyIcons = [mdiHorse, mdiCat, mdiDog, mdiRabbit, mdiBird];
   const foodAllergyIcons = [
